@@ -13,5 +13,10 @@ setInterval(() => {
     console.log(__dirname, __filename)
 }, 10000);
 
+const func1 = () => { console.log('this is func 1') };
+const func2 = () => { console.log('this is func 2') };
+
+module.exports = { func1, func2 };
+
 
 
