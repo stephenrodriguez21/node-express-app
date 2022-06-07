@@ -16,7 +16,22 @@ const products = [
     }
 ];
 
-module.exports = { products };
+const users = [
+    {
+        id: 1,
+        name: "Steve"
+    },
+    {
+        id: 2,
+        name: "Max"
+    },
+    {
+        id: 3,
+        name: "Joe s"
+    }
+]
+
+module.exports = { products, users };
 
 
 

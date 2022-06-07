@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { products } = require('./public/data');
+const { products, users } = require('./public/data');
 const validator = (req, res, next) => {
     console.log('Inside Validators!');
     next();
@@ -32,6 +32,22 @@ app.get('/products/:id', validator, (req, res) => {
 
     if(product?.length === 0) res.status(404).send('Item not found!');
     res.status(200).json(product);
+});
+
+const loadUsers = () => {
+    return new Promise((resolve, reject) => {
+        try {  
+            resolve(users)
+        } catch (e){
+            reject(e);
+        }
+    });
+};
+
+app.get('/users', async (req, res) => {
+    const users = await loadUsers()
+    console.log(users)
+    res.status(200).json(users);
 });
 
 

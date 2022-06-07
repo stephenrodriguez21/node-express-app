@@ -20,18 +20,91 @@ app.get('/products', (req, res) => {
     res.status(200).json(products);
 });
 
-app.get('/products/:id', validator, (req, res) => {
-    const { id } = req.params;
-    if(!id){
-        res.status(401).send('Bad Request!')
+const loadProcess = (id, cb) => {
+    for(let i=0; i< id; i++){
+        for(let j=0; j< id; j++){
+           console.log(j) 
+        }
     }
+    cb();
+}
 
-    const product = products.filter(item => {
-        return item.id === Number(id)
-    });
+const setImmediatePromise = () => {
+    return new Promise((resolve) => {
+        setImmediate(() => resolve());
+      });
+}
 
-    if(product?.length === 0) res.status(404).send('Item not found!');
-    res.status(200).json(product);
+const doWork = () => {
+    for(let i = 0; i < 10000; i++){
+        for(let j = 0; j < 100; j++){
+            console.log(i);
+        };
+    };
+}
+
+const loadData = () => {
+    console.log('LODSDSD')
+        return new Promise((resolve) => {
+            //resolve(doWork());
+            console.log('read')
+            setImmediate(() => resolve(doWork()));
+        });
+}
+
+app.get('/products/:id', async function computeWSetImmediate(req, res) {
+    let total = 0;
+    const { id } = req.params;
+
+    await loadData();
+
+    //setImmediate(() => await loadData());
+
+        // for (let i = 0; i < id; i++) {
+        //     for (let j = 0; j < id; j++) {
+        //     total += i;
+        //     console.log(total);
+        //     await setImmediatePromise();
+        //     }
+        //   }
+
+    //   for (let i = 0; i < id; i++) {
+    //     for (let j = 0; j < id; j++) {
+    //     total += i;
+    //     await setImmediatePromise();
+    //     }
+    //   }
+
+      res.status(200).send('done!!!');
+
+
+
+    //const { id } = req.params;
+
+    // loadProcess(id, () => {
+    //     res.status(200).send('ok');
+    // });
+
+    // for(let i=0; i< id; i++){
+    //     for(let j=0; j< id; j++){
+    //        console.log(j) 
+    //     }
+    // }
+    // res.status(200).send('ok');
+
+
+
+    // const { id } = req.params;
+    // if(!id){
+    //     res.status(401).send('Bad Request!')
+    // }
+
+    // const product = products.filter(item => {
+    //     return item.id === Number(id)
+    // });
+
+    // if(product?.length === 0) res.status(404).send('Item not found!');
+    // res.status(200).json(product);
 });
 
 
